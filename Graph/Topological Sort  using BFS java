@@ -1,0 +1,70 @@
+Topological Sort  using BFS 
+
+We will use Kahn's Algorithm.
+
+Approach :-
+
+    In order to maintain the In-degree of each and every node, we take an array of size v( where v is the number of nodes).
+    Find in-degree of all nodes and fill them in an array
+    Now take Queue data structure and add nodes that have in-degree is 0 (as we discussed in the intuition), and simply apply bfs on queue with some condition.
+    Take the top/peek node from Queue ( let the popped node be x), add this x to our answer. (If you can observe clearly the above step is nothing but Normal BFS traversal).
+
+    We will apply some conditions to the BFS:
+        Now take neighbour nodes of popped nodes and reduce their in-degree by 1.
+        Check if any of the popped element nodes in degree becomes 0, after reducing in-degree by 1 if it happens then add this neighbour element to the queue for which the in-degree became zero.
+    Repeat step 4 till the queue becomes empty.
+
+     We will apply some conditions to the BFS:
+
+      a) Now take neighbour nodes of popped nodes and reduce their indegree by 1.
+
+      b) Check if any of popped element nodes in degree become 0, after reducing in-degree by 1, if it happens then add this neighbour element which in-degree became 0 to the queue.
+
+Code:-
+
+class Solution
+    {
+            public boolean isCyclic(int N, ArrayList<ArrayList<Integer>> adj) {
+                int topo[] = new int[N];
+                int indegree[] = new int[N];
+                
+                //finding indegree
+                for(int i = 0; i < N; i++) {
+                    for(Integer it: adj.get(i)) {
+                        indegree[it]++;
+                    }
+                }
+                
+                
+                Queue<Integer> q = new LinkedList<Integer>();
+                for(int i = 0; i < N; i++) {
+                    //adding nodes to queue with indegree = 0
+                    if(indegree[i] == 0) {
+                        q.add(i);
+                    }
+                }
+                
+                int ind = 0;
+                
+                while(!q.isEmpty()) {
+                    Integer node = q.poll();
+                    topo[ind++] = node;
+                    
+                    for(Integer it: adj.get(node)) {
+                        indegree[it]--;
+                        if(indegree[it] == 0) {
+                            q.add(it);
+                        }
+                    }
+                }
+                 //printing topological ordering of nodes
+                for (int i=0;i< topo.length;i++){
+                    System.out.print(topo[i]+" ");
+                }
+                return true;
+            }
+        }
+        
+        TC :- O(N+E)
+
+        SC :- O(N)+O(N)
