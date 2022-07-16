@@ -3,8 +3,7 @@ Cycle Detection in Undirected Graph using DFS
 Code:-
 
 class Solution {
-    public boolean checkForCycle(int node, int parent, boolean vis[], ArrayList < ArrayList 
-    < Integer >> adj) {
+    public boolean checkForCycle(int node, int parent, boolean vis[], ArrayList < ArrayList< Integer >> adj) {
         vis[node] = true;
         for (Integer it: adj.get(node)) {
             if (vis[it] == false) {
