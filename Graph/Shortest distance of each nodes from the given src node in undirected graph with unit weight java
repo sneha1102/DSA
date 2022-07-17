@@ -1,0 +1,43 @@
+Shortest distance of each nodes from the given src node in undirected graph with unit weight java
+
+Approach:-
+We will use modified bfs for solving this problem.
+Queue-> will store nodes. 
+Dist -> array to store minimum distance that is required to reach from src node.
+Mark all nodes distance as infinity i.e Int min/max value.
+First store src node to the queue and update the dist array of src node = 0 as distance to travel src to src node will be zero.
+
+Code:-
+
+class Solution
+{
+  private void shortestPath(ArrayList<ArrayList<Integer>> adj,int N,int src) 
+	  { 	
+		  int[] dist = new int[N]; 
+    	for(int i = 0; i < N; i++) 
+    		dist[i] = 1000000000; 
+    
+    	Queue<Integer> q = new LinkedList<>();	
+    	dist[src] = 0;
+    	q.add(src); 
+    
+    	while(!q.isEmpty()) 
+    	{ 
+    		int node = q.poll();   
+    		for(int it : adj.get(node)){
+    		    if(dist[node] + 1 < dist[it]){
+    		        dist[it] = dist[node] + 1;
+    		        q.add(it);
+    		    }
+    		} 
+    	}
+    	
+    	for(int i = 0; i < N;i++) {
+    	    System.out.print(dist[i] + " "); 
+    	}
+	} 
+}
+
+
+TC :- O(N + E), N - no of nodes, E - no of edges
+SC :- O(N) + O(N), queue & dist array.
