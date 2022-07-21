@@ -5,6 +5,10 @@ MST(Minimum spanning tree) :- A minimum spanning tree consists of N nodes and N-
 Solution:-
 Approach - 1: Brute force
 
+    Key : This array holds the weight/ cost of the MST(intialized to INT_MAX except the index 0 which is set with value of zero)
+    MST : This is a boolean array which indicates whether a node is already a part of MST or not(initialized to false except the index 0 which is true)
+    Parent :  This indicates the parent of a particular node in the MST(initialized to -1)
+
 class Node 
 {
     private int v;
