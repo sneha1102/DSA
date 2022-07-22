@@ -1,0 +1,33 @@
+public void findPar(int node){
+     if(node == parent[node])
+        return node;
+     // path comparison is done here
+     return parentnode] = findPar(parent[node]);
+   }
+
+  public void union(int u, int v){
+      u = findPar(u);
+      v = findPar(v);
+      if(rank[u] > rank[v])
+       parent[v] = u;
+      else if(rank[u] < rank[v])
+       parent[u] = v;
+      else{
+         parent[u] = v;
+         rank[v]++;
+
+           or
+         parent[v] = u;
+         rank[u]++;
+   }
+}
+  public void checkTwoNodeBelongToSamecomponentOrNot(int u, int v){
+       if(findPar(u) != findPar(v)){    
+           System.out.println("Different component");
+       else
+           System.out.println("same component");
+  }
+  }    
+ 
+TC :- O(4 Alpha) = O(4) = O(1)
+SC :- O(n)
