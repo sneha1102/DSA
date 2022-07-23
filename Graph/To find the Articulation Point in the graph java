@@ -33,7 +33,7 @@ class Main
 		if(parent == -1 && child > 1) 
       isArticulation[node] = 1;  
 	}
-    void printBridges(ArrayList<ArrayList<Integer>> adj, int n)
+    void printArticulationPoint(ArrayList<ArrayList<Integer>> adj, int n)
     {
         int vis[] = new int[n]; 
         int tin[] = new int[n];
@@ -77,7 +77,7 @@ class Main
 		adj.get(4).add(3);
 			
 		Main obj = new Main(); 
-		obj.printBridges(adj, n); 
+		obj.printArticulationPoint(adj, n); 
 		
     }
 }
