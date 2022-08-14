@@ -1,0 +1,38 @@
+Print all subsequences whose sum is equal to given sum.
+ex- [1, 2, 1], sum = 2
+o/p- [1, 1], [2]
+
+Solution:-
+
+public class Main {
+    public static void f(int ind, int[] arr, int n, List<Integer> ans, int s, int sum){
+        if(ind == n){
+            if(s == sum){
+            // print
+            for(int i = 0; i < ans.size(); i++){
+                System.out.print(ans.get(i) + " ");
+            }
+                 System.out.println();
+            }
+            return;
+        }
+        //take
+        ans.add(arr[ind]);
+        s += arr[ind];
+        f(ind + 1, arr, n, ans, s, sum);
+        ans.remove(ans.size() - 1);
+        s -= arr[ind];
+        //not take
+        f(ind + 1, arr, n, ans, s, sum);
+        
+    }
+    public static void main(String[] args) {
+        int arr[] = {1, 2, 1};
+        int n = arr.length;
+        List<Integer> ans = new ArrayList<>();
+        int sum = 2;
+        int s = 0;
+        f(0, arr, n, ans, s, sum);
+    }
+}
+
