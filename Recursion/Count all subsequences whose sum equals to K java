@@ -1,0 +1,39 @@
+Count all subsequences whose sum equals to K.
+
+ex - [1, 2, 1], k = 2
+o/p - 2
+
+Solution:-
+
+public class Main {
+    public static int f(int ind, int[] arr, int n, int s, int sum){
+        // if array contains positive element only then condition will work
+        if(s > sum)
+          return 0;
+        if(ind == n){
+            //condition satisfied
+            if(s == sum){
+                return 1;
+            }
+            // condition not satisfied 
+            return 0;
+        }
+        //take
+        s += arr[ind];
+        int left = f(ind + 1, arr, n, s, sum);
+        s -= arr[ind];
+        //not take
+        int right = f(ind + 1, arr, n, s, sum);
+        return left + right;
+        
+    }
+    public static void main(String[] args) {
+        int arr[] = {1, 2, 1};
+        int n = arr.length;
+        int sum = 2;
+        int s = 0;
+        System.out.print(f(0, arr, n, s, sum));
+    }
+}
+
+TC - O(2 ^ N)
