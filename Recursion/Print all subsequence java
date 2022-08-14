@@ -1,0 +1,35 @@
+Print all subsequence using recursion.
+
+Solution:-
+
+public class Main {
+    public static void f(int ind, int[] arr, int n, List<Integer> ans){
+        if(ind == n){
+            // print
+            for(int i = 0; i < ans.size(); i++){
+                System.out.print(ans.get(i) + " ");
+            }
+            if(ans.size() == 0){
+                System.out.print("{ }");
+            }
+            System.out.println();
+            return;
+        }
+        //take
+        ans.add(arr[ind]);
+        f(ind + 1, arr, n, ans);
+        ans.remove(ans.size() - 1);
+        //not take
+        f(ind + 1, arr, n, ans);
+        
+    }
+    public static void main(String[] args) {
+        int arr[] = {3, 1, 2};
+        int n = arr.length;
+        List<Integer> ans = new ArrayList<>();
+        f(0, arr, n, ans);
+    }
+}
+
+TC - O(2 ^ N * N)
+SC - O(N)
