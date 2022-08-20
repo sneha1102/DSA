@@ -18,7 +18,6 @@ Output:
 
 Solution:-
 
-// "static void main" must be defined in a public class.
 public class Main {
     public void subsetSum(int ind, int sum, ArrayList<Integer> res, int n, int[] arr){
         if(ind == n){
