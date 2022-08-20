@@ -1,0 +1,46 @@
+Question:-
+
+Given a list arr of N integers, print sums of all subsets in it. Output should be printed in the increasing order of the sums.
+
+Ex - 1
+Input:
+N = 2
+arr[] = {2, 3}
+Output:
+0 2 3 5
+
+Ex - 2
+Input:
+N = 3
+arr = {5, 2, 1}
+Output:
+0 1 2 3 5 6 7 8
+
+Solution:-
+
+// "static void main" must be defined in a public class.
+public class Main {
+    public void subsetSum(int ind, int sum, ArrayList<Integer> res, int n, int[] arr){
+        if(ind == n){
+            res.add(sum);
+            return;
+        }
+        // pick current element
+        subsetSum(ind + 1, sum + arr[ind], res, n, arr);
+        // not pick 
+        subsetSum(ind + 1, sum, res, n, arr);
+
+    }
+    public static void main(String[] args) {
+        int[] arr = new int[]{3, 1, 2};
+        int n = arr.length;
+        ArrayList<Integer> res = new ArrayList<>();
+        Main m = new Main();
+        m.subsetSum(0, 0, res, n, arr);
+        Collections.sort(res);
+        System.out.println(res.toString());
+    }
+}
+
+TC - O(2 ^ N log (2 ^ N))
+SC - O(2 ^ N)
