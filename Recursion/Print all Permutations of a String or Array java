@@ -1,0 +1,79 @@
+Question:-
+ Print all Permutations of a String or array.
+
+Soluton:-
+
+Approach - 1 :- use of extra ds and map/freq array
+
+public class Main {
+    public void recurPermutation(int ind, List<List<Integer>> res, List<Integer> ds, int[] nums, boolean[] freq){
+        if(ds.size() == nums.length){
+            res.add(new ArrayList<>(ds));
+            return;
+        }
+        // check for each possible element
+        for(int i = 0; i < nums.length; i++){
+            if(!freq[i]){    
+                freq[i] = true;
+                // add element in ds
+                ds.add(nums[i]);
+                recurPermutation(i + 1, res, ds, nums, freq);
+                //remove element after recursion call
+                ds.remove(ds.size() - 1);
+                freq[i] = false;
+            }
+        }
+    }
+    public static void main(String[] args) {
+        int[] arr = new int[]{1, 2, 3};
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
+        // freq array to store whether current element is picked or not.
+        boolean freq[] = new boolean[arr.length];
+        Main m = new Main();
+        m.recurPermutation(0, res, ds, arr, freq);
+        
+        System.out.println(res.toString());
+    }
+}
+
+TC - O(N! * N)
+SC - O(2N)
+
+Approach - 2 :- Swapping technique
+
+public class Main {
+    public void recurPermutation(int ind, List<List<Integer>> res, int[] nums){
+        if(ind == nums.length){
+            List<Integer> ds = new ArrayList<>();
+            for(int i = 0; i < nums.length; i++){
+                ds.add(nums[i]);
+            }
+            res.add(new ArrayList<>(ds));
+            return;
+        }
+        
+        for(int i = ind; i < nums.length; i++){
+            swap(nums, i, ind);
+            recurPermutation(ind + 1, res, nums);
+            swap(nums, i, ind);       
+        }
+    }
+    
+    public void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+    public static void main(String[] args) {
+        int[] arr = new int[]{1, 2, 3};
+        List<List<Integer>> res = new ArrayList<>();
+        Main m = new Main();
+        m.recurPermutation(0, res, arr);
+        
+        System.out.println(res.toString());
+    }
+}
+
+TC - O(N! * N)
+SC - O(1)
