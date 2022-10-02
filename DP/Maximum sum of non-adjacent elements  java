@@ -1,0 +1,90 @@
+Question:-
+https://www.codingninjas.com/codestudio/problems/maximum-sum-of-non-adjacent-elements_843261?leftPanelTab=0
+
+Solution:-
+
+import java.util.* ;
+import java.io.*; 
+import java.util.*;
+public class Solution {
+    /*
+    // recursion
+	public static int maximumNonAdjacentSum(ArrayList<Integer> nums) {
+		return solve(nums.size() - 1, nums);
+	}
+    
+    private static int solve(int ind, ArrayList<Integer> nums){
+        if(ind == 0)
+            return nums.get(ind);
+        if(ind < 0)
+            return 0;
+        
+        int pick = nums.get(ind) + solve(ind - 2, nums);
+        int notPick = 0 + solve(ind - 1, nums);
+        
+        return Math.max(pick, notPick);
+    }
+    */
+    /*
+    // memoization
+    public static int maximumNonAdjacentSum(ArrayList<Integer> nums) {
+        int[] dp = new int[nums.size()];
+        Arrays.fill(dp, -1);
+        return solve(nums.size() - 1, nums, dp);
+    }
+    
+    private static int solve(int ind, ArrayList<Integer> nums, int[] dp){
+        if(ind == 0)
+            return nums.get(ind);
+        if(ind < 0)
+            return 0;
+        if(dp[ind] != -1)
+            return dp[ind];
+        int pick = nums.get(ind) + solve(ind - 2, nums, dp);
+        int notPick = 0 + solve(ind - 1, nums, dp);
+        
+        return dp[ind] = Math.max(pick, notPick);
+    }
+    */
+    
+    /*
+    // tabulation
+    public static int maximumNonAdjacentSum(ArrayList<Integer> nums) {
+        int[] dp = new int[nums.size()];
+        Arrays.fill(dp, -1);
+        return solve(nums.size() - 1, nums, dp);
+    }
+    
+    private static int solve(int ind, ArrayList<Integer> nums, int[] dp){
+        dp[0] = nums.get(0);
+        for(int i = 1; i < nums.size(); i++){
+            int pick = nums.get(i);
+            if(i > 1)
+                pick += dp[i - 2];
+            int notPick = 0 + dp[i - 1];
+            dp[i] = Math.max(pick, notPick);
+        }   
+        return dp[ind]; 
+    }
+    */
+    
+    // tabulation with space optimization
+     public static int maximumNonAdjacentSum(ArrayList<Integer> nums) {
+        return solve(nums.size() - 1, nums);
+    }
+    
+    private static int solve(int ind, ArrayList<Integer> nums){
+        int prev2 = 0;
+        int prev = nums.get(0);
+        for(int i = 1; i < nums.size(); i++){
+            int pick = nums.get(i);
+            if(i > 1)
+                pick += prev2;
+            int notPick = 0 + prev;
+            int curr = Math.max(pick, notPick);
+            prev2 = prev;
+            prev = curr;
+        }   
+        return prev; 
+    }
+}
