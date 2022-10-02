@@ -1,0 +1,93 @@
+Question:-
+https://www.codingninjas.com/codestudio/problems/frog-jump_3621012?leftPanelTab=0
+
+Solution:-
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    // recursion
+    /*
+    public static int frogJump(int n, int heights[]) {
+        // zero based index so n - 1
+        return solve(n - 1, heights);
+    }
+    
+    private static int solve(int ind, int[] h){
+        if(ind == 0)
+            return 0;
+        int indMinusOneEnergy = solve(ind - 1, h) + Math.abs(h[ind] - h[ind -1]);
+        int indMinusTwoEnergy = Integer.MAX_VALUE;
+        if(ind > 1)
+            indMinusTwoEnergy = solve(ind - 2, h) + Math.abs(h[ind] - h[ind - 2]);
+        
+        return Math.min(indMinusOneEnergy, indMinusTwoEnergy);
+    }
+    */
+/*
+    //memoization
+    public static int frogJump(int n, int heights[]) {
+        int dp[] = new int[n];
+        Arrays.fill(dp, -1);
+        // zero based index so n - 1
+        return solve(n - 1, heights, dp);
+    }
+    
+    private static int solve(int ind, int[] h, int[] dp){
+        if(ind == 0)
+            return 0;
+        if(dp[ind] != -1)
+            return dp[ind];
+        int indMinusOneEnergy = solve(ind - 1, h, dp) + Math.abs(h[ind] - h[ind -1]);
+        int indMinusTwoEnergy = Integer.MAX_VALUE;
+        if(ind > 1)
+            indMinusTwoEnergy = solve(ind - 2, h, dp) + Math.abs(h[ind] - h[ind - 2]);
+        
+        return dp[ind] = Math.min(indMinusOneEnergy, indMinusTwoEnergy);
+    }
+*/
+    
+    // tabulation
+    
+    public static int frogJump(int n, int heights[]) {
+        // zero based index so n - 1
+        return solve(n - 1, heights);
+    }
+    
+    private static int solve(int ind, int[] h){
+        // since ind = n- 1, so ind + 1
+        int dp[] = new int[ind + 1];
+        dp[0] = 0;
+        for(int i = 1; i <= ind; i++){
+            int curr1 = dp[i - 1] + Math.abs(h[i] - h[i - 1]);
+            int curr2 = Integer.MAX_VALUE;
+            if(i > 1)
+                curr2 = dp[i - 2] + Math.abs(h[i] - h[i - 2]);
+            dp[i] = Math.min(curr1, curr2);
+        }
+        return dp[ind];
+    }
+    
+    /*
+    // tabulation with space optimization
+    public static int frogJump(int n, int heights[]) {
+        // zero based index so n - 1
+        return solve(n - 1, heights);
+    }
+    
+    private static int solve(int ind, int[] h){
+        int prevToPrev = 0;
+        int prev = 0;
+        for(int i = 1; i <= ind; i++){
+            int curr1 = prev + Math.abs(h[i] - h[i - 1]);
+            int curr2 = Integer.MAX_VALUE;
+            if(i > 1)
+                curr2 = prevToPrev + Math.abs(h[i] - h[i - 2]);
+            int curr = Math.min(curr1, curr2);
+            prevToPrev = prev;
+            prev = curr;
+        }
+        return prev;
+    }
+    */
+}
